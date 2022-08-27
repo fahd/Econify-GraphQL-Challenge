@@ -13,7 +13,9 @@
   "author": "Fahd Sheikh",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.18.1"
+    "@graphql-tools/schema": "^9.0.2",
+    "express": "^4.18.1",
+    "express-graphql": "^0.12.0"
   },
   "devDependencies": {
     "@babel/node": "^7.18.10",
@@ -24,5 +26,5 @@
     "nodemon": "^2.0.19",
     "prettier": "^2.7.1"
   },
-  "type":"module"
+  "type": "module"
 }
