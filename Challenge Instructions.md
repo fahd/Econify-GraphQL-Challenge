@@ -15,13 +15,11 @@ Some bullet points:
 Database Schema:
 
 1. Organization:
-
     - Name
     - CreatedAt
     - UpdatedAt
 
 2. Locations: (belongs to Organization):
-
     - Name
     - Address
     - Latitude

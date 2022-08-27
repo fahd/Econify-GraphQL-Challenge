@@ -4,6 +4,8 @@ const organizationType = `
     name: String!
     createdAt: DateTime!
     updatedAt: DateTime!
+    events: [Event!]!
+    locations: [Location!]!
   }
 `;
 
