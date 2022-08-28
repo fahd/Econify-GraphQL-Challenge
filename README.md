@@ -1,10 +1,13 @@
-## Instructions To Use:
+## About:
 
 This project creates a Node.js server integrated with GraphQL.
 
 See specifications outlined in `Specifications.md`.
 
 Server is hosted at `http://localhost:9000`.
+
+**PostgreSQL** is used for persistance, leveraging the Sequelize ORM for Node.js.
+- Models can be viewed in `server/models`
 
 ## Installation Steps
 
