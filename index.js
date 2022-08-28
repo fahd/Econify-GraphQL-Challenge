@@ -7,7 +7,7 @@ import resolvers from './server/resolvers/index.js';
 import models, { sequelize } from './server/models/index.js';
 import { logTools, seed } from './server/utils/index.js';
 
-const eraseDatabaseOnSync = process.env.NODE_ENV === 'development';
+const eraseDatabaseOnSync = process.env.NODE_ENV === 'DEVELOPMENT';
 const port = process.env.PORT || 9000;
 const schema = makeExecutableSchema({
   typeDefs,
@@ -25,6 +25,7 @@ app.use(
   }),
 );
 
+// erase and seed database in development mode
 sequelize.sync({ force: eraseDatabaseOnSync }).then(() => {
   if (eraseDatabaseOnSync) {
     seed.createOrganizations();

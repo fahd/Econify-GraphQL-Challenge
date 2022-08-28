@@ -48,7 +48,7 @@ const seed = {
       {
         name: 'Happy Hour',
         description: 'Post-work discussion',
-        date: '2022-09-23',
+        date: '2022-10-23',
         time: '08:09:18',
         organizationId: 2,
       },
