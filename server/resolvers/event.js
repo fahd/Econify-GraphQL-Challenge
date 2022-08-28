@@ -50,23 +50,29 @@ const eventResolver = {
       date,
       time,
     }, { Event }) => {
-      try {
-        const modifiedEvent = {};
-        modifiedEvent.id = id;
-        if (eventName) modifiedEvent.name = eventName;
-        if (description) modifiedEvent.description = description;
-        if (date) modifiedEvent.date = date;
-        if (time) modifiedEvent.time = time;
-        await Event.update(modifiedEvent, {
-          where: {
-            id,
-          },
-        });
-        return true;
-      } catch (error) {
-        console.log('Error in updating event:', error);
+      const event = await Event.findOne({ where: { id } });
+      if (event) {
+        try {
+          const modifiedEvent = {};
+          modifiedEvent.id = id;
+          if (eventName) modifiedEvent.name = eventName;
+          if (description) modifiedEvent.description = description;
+          if (date) modifiedEvent.date = date;
+          if (time) modifiedEvent.time = time;
+          await Event.update(modifiedEvent, {
+            where: {
+              id,
+            },
+          });
+          return true;
+        } catch (error) {
+          console.log('Error in updating event:', error);
+          return false;
+        }
+      } else {
+        console.log(`The event record with an id of "${id}" does not exist!`);
+        return false;
       }
-      return false;
     },
     deleteEvent: async (parent, { id }, { Event }) => {
       try {

@@ -41,25 +41,31 @@ const locationResolver = {
       locationName,
       address,
     }, { Location }) => {
-      try {
-        const modifiedLocation = {};
-        modifiedLocation.id = id;
-        if (locationName) modifiedLocation.name = locationName;
-        if (address) {
-          modifiedLocation.address = address;
-          modifiedLocation.latitude = address;
-          modifiedLocation.longitude = address;
+      const location = await Location.findOne({ where: { id } });
+      if (location) {
+        try {
+          const modifiedLocation = {};
+          modifiedLocation.id = id;
+          if (locationName) modifiedLocation.name = locationName;
+          if (address) {
+            modifiedLocation.address = address;
+            modifiedLocation.latitude = address;
+            modifiedLocation.longitude = address;
+          }
+          await Location.update(modifiedLocation, {
+            where: {
+              id,
+            },
+          });
+          return true;
+        } catch (error) {
+          console.log('Error in updating location:', error);
+          return false;
         }
-        await Location.update(modifiedLocation, {
-          where: {
-            id,
-          },
-        });
-        return true;
-      } catch (error) {
-        console.log('Error in updating location:', error);
+      } else {
+        console.log(`The location record with an id of "${id}" does not exist!`);
+        return false;
       }
-      return false;
     },
     deleteLocation: async (parent, { id }, { Location }) => {
       try {
