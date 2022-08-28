@@ -7,14 +7,14 @@ const organizationResolver = {
         },
       });
       if (!organization) {
-        console.log('This organization was not found! Please try your query again');
+        console.log('This organization was not found! Please try your query again.');
       }
       return organization;
     },
     organizations: async (parent, args, { Organization }) => {
       const organizations = await Organization.findAll();
       if (!organizations) {
-        console.log('There are no organizations added yet');
+        console.log('There are no organizations added yet.');
       }
       return organizations;
     },
@@ -28,7 +28,7 @@ const organizationResolver = {
         return organization;
       } catch (error) {
         const { message } = error.errors[0];
-        console.log('Error creating organization:', message);
+        console.log('Error Creating Organization:', message);
         return error;
       }
     },
