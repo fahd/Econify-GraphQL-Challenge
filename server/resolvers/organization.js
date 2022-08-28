@@ -32,7 +32,7 @@ const organizationResolver = {
         return organization;
       } catch (error) {
         const { message } = error.errors[0];
-        logger.error(`Error Creating Organization: ${message}`);
+        logger.error(`Error creating organization: ${message}`);
         return error;
       }
     },

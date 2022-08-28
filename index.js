@@ -28,7 +28,7 @@ sequelize.sync().then(() => {
   app.listen(port, () => {
     console.log(
       logTools.logTextColorCyan,
-      `🟢 Running GraphQL API server at: http://localhost:${port}/graphql`
+      `🟢 Running GraphQL API server at: http://localhost:${port}/graphql`,
     );
   });
 });

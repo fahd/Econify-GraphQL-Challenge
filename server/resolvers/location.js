@@ -1,6 +1,16 @@
-import { logTools } from '../utils/index.js';
+import { logTools, api } from '../utils/index.js';
 
 const { logger } = logTools;
+
+const modifyLocation = async (locationDict, address) => {
+  const locationData = await api.getAddressDetails(address);
+  // If valid address is inputted, add latitude and longitude to location data waiting to be saved
+  if (locationData) {
+    const { formattedAddress, latitude, longitude } = locationData;
+    Object.assign(locationDict, { address: formattedAddress, latitude, longitude });
+  }
+  // If no valid address inputted, no address is saved
+};
 
 const locationResolver = {
   Query: {
@@ -28,6 +38,7 @@ const locationResolver = {
     ) => {
       try {
         const newLocation = { name: locationName, organizationId };
+        if (address) await modifyLocation(newLocation, address);
         const location = await Location.create(
           newLocation,
           {
@@ -36,7 +47,8 @@ const locationResolver = {
         );
         return location;
       } catch (error) {
-        logger.error(`Error in creating new location: ${error}`);
+        const { message } = error.errors[0];
+        logger.error(`Error in creating new location: ${message}`);
         return error;
       }
     },
@@ -48,23 +60,19 @@ const locationResolver = {
       const location = await Location.findOne({ where: { id } });
       if (location) {
         try {
-          const modifiedLocation = {};
-          modifiedLocation.id = id;
+          const modifiedLocation = { id };
           if (locationName) modifiedLocation.name = locationName;
-          if (address) {
-            modifiedLocation.address = address;
-            modifiedLocation.latitude = address;
-            modifiedLocation.longitude = address;
-          }
+          if (address) await modifyLocation(modifiedLocation, address);
           await Location.update(modifiedLocation, {
             where: {
               id,
             },
           });
-          return true;
+          return `Location with id ${id} updated.`;
         } catch (error) {
-          logger.error(`Error in updating location with id ${id}: ${error}`);
-          return false;
+          const errorMessage = `Error in updating location with id ${id}: ${error}`;
+          logger.error(errorMessage);
+          return errorMessage;
         }
       } else {
         const warnMessage = `The location record with id ${id} does not exist!`;

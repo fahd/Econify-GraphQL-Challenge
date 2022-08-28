@@ -43,7 +43,8 @@ const eventResolver = {
         );
         return event;
       } catch (error) {
-        logger.error(`Error creating event: ${error}`);
+        const { message } = error.errors[0];
+        logger.error(`Error creating event: ${message}`);
         return error;
       }
     },
@@ -57,8 +58,7 @@ const eventResolver = {
       const event = await Event.findOne({ where: { id } });
       if (event) {
         try {
-          const modifiedEvent = {};
-          modifiedEvent.id = id;
+          const modifiedEvent = { id };
           if (eventName) modifiedEvent.name = eventName;
           if (description) modifiedEvent.description = description;
           if (date) modifiedEvent.date = date;
