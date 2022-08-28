@@ -1,4 +1,4 @@
-##Instructions To Use:
+## Instructions To Use:
 
 This project creates a Node.js server integrated with GraphQL.
 See specifications outlined in `Specifications.md`.
@@ -6,9 +6,9 @@ See specifications outlined in `Specifications.md`.
 Server is hosted at `http://localhost:9000`.
 
 ___
-### Installation Steps
+## Installation Steps
 
-##### Create a `.env` file with your environment variables
+### Create a `.env` file with your environment variables
 ```
 .env
 
@@ -19,12 +19,12 @@ NODE_ENV=value (for example, DEVELOPMENT)
 GOOGLE_MAPS_API_KEY=google_maps_api_key
 ````
 
-##### Install Dependencies
+### Install Dependencies
 ```
 npm install
 ````
 
-##### Start Server
+### Start Server
 ```
 // Runs server
 npm start
@@ -35,7 +35,7 @@ npm run dev
 - When `NODE_ENV=DEVELOPMENT` data will be seeded.
   - To see the specific data being seeded, visit `server/utils/seed.js`
 
-##### Other Scripts
+### Other Scripts
 ```
 // uses Prettier to check code formatting
 npm run format:check 
@@ -54,6 +54,6 @@ npm run lint:fix
 ```
 - Located in `package.json`.
 
-##### GraphQL IDE
+### GraphQL IDE
 Visit `http://localhost:9000/graphql/gql` to query and mutate the data, interactively.
 
