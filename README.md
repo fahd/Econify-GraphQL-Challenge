@@ -55,5 +55,5 @@ npm run lint:fix
 - Located in `package.json`.
 
 #### GraphQL IDE
-Visit `http://localhost:9000/graphql/gql` to query and mutate the data, interactively.
+Visit `http://localhost:9000/graphql` to query and mutate the data, interactively.
 
