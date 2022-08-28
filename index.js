@@ -25,8 +25,8 @@ app.use(
   }),
 );
 
-// erase and seed database in development mode
 sequelize.sync({ force: eraseDatabaseOnSync }).then(() => {
+  // erase and seed database in development mode
   if (eraseDatabaseOnSync) {
     seed.createOrganizations();
     seed.createEvents();
