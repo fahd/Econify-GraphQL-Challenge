@@ -89,7 +89,8 @@ const eventResolver = {
     },
   },
   Event: {
-    organization: async ({ organizationId }, args, { Organization }) => {
+    organization: async (parent, args, { Organization }) => {
+      const { organizationId } = parent;
       const organization = await Organization.findOne({
         where: {
           id: organizationId,
