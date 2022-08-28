@@ -20,6 +20,11 @@ const getOrganization = (sequelize, { DataTypes }) => {
     },
   });
 
+  Organization.associate = (models) => {
+    Organization.hasMany(models.Event);
+    Organization.hasMany(models.Location);
+  };
+
   return Organization;
 };
 

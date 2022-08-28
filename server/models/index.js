@@ -1,6 +1,8 @@
 import 'dotenv/config';
 import Sequelize from 'sequelize';
 import getOrganization from './organization.js';
+import getEvent from './event.js';
+import getLocation from './location.js';
 
 const {
   DB_NAME,
@@ -19,6 +21,8 @@ const sequelize = new Sequelize(
 
 const models = {
   Organization: getOrganization(sequelize, Sequelize),
+  Event: getEvent(sequelize, Sequelize),
+  Location: getLocation(sequelize, Sequelize),
 };
 
 export { sequelize };
