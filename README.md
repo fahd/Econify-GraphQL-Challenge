@@ -8,7 +8,7 @@ Server is hosted at `http://localhost:9000`.
 
 ## Installation Steps
 
-### Create a `.env` file with your environment variables
+#### Create a `.env` file with your environment variables
 ```
 .env
 
