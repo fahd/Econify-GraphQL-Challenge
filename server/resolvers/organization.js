@@ -1,7 +1,15 @@
 const organizationResolver = {
   Query: {
-    organization: async (parent, args, models) => {
-
+    organization: async (parent, { organizationName }, models) => {
+      const organization = await models.Organization.findOne({
+        where: {
+          name: organizationName,
+        },
+      });
+      if (!organization) {
+        console.log(`Organization "${organizationName}" not found! Please try your query again`);
+      }
+      return organization;
     },
   },
   Mutation: {
@@ -18,6 +26,12 @@ const organizationResolver = {
       }
     },
   },
+  Organization: {
+    events: async (parent, { organizationName }, models) => {
+    },
+    locations: async (parent, { organizationName }, models) => {
+    },
+  }
 };
 
 export default organizationResolver;
