@@ -10,9 +10,7 @@ const getLocation = (sequelize, { DataTypes }) => {
       unique: true,
       allowNull: false,
     },
-    address: {
-      type: DataTypes.STRING,
-    },
+    address: DataTypes.STRING,
     latitude: DataTypes.FLOAT,
     longitude: DataTypes.FLOAT,
     createdAt: {

@@ -1,3 +1,7 @@
+import { logTools } from '../utils/index.js';
+
+const { logger } = logTools;
+
 const eventResolver = {
   Query: {
     event: async (parent, { id }, { Event }) => {
@@ -7,7 +11,7 @@ const eventResolver = {
         },
       });
       if (!event) {
-        console.log('This event was not found! Please try your query again.');
+        logger.warn(`Event with id ${id} was not found! Please try your query again.`);
       }
       return event;
     },
@@ -39,7 +43,7 @@ const eventResolver = {
         );
         return event;
       } catch (error) {
-        console.log('Error creating event:', error);
+        logger.error(`Error creating event: ${error}`);
         return error;
       }
     },
@@ -64,28 +68,38 @@ const eventResolver = {
               id,
             },
           });
-          return true;
+          return `Event with id ${id} updated.`;
         } catch (error) {
-          console.log('Error in updating event:', error);
-          return false;
+          const errorMessage = `Error in updating event with id ${id}: ${error}`;
+          logger.error(errorMessage);
+          return errorMessage;
         }
       } else {
-        console.log(`The event record with an id of "${id}" does not exist!`);
-        return false;
+        const warnMessage = `The event record with id ${id} does not exist!`;
+        logger.warn(warnMessage);
+        return warnMessage;
       }
     },
     deleteEvent: async (parent, { id }, { Event }) => {
-      try {
-        await Event.destroy({
-          where: {
-            id,
-          },
-        });
-        return true;
-      } catch (error) {
-        console.log('Error in deleting event:', error);
+      const event = await Event.findOne({ where: { id } });
+      if (event) {
+        try {
+          await Event.destroy({
+            where: {
+              id,
+            },
+          });
+          return `Event with id ${id} deleted.`;
+        } catch (error) {
+          const errorMessage = `Error in deleting event with id ${id}: ${error}`;
+          logger.error(errorMessage);
+          return errorMessage;
+        }
+      } else {
+        const warnMessage = `The event record with id ${id} does not exist!`;
+        logger.warn(warnMessage);
+        return warnMessage;
       }
-      return false;
     },
   },
   Event: {

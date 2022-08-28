@@ -5,7 +5,7 @@ import { makeExecutableSchema } from '@graphql-tools/schema';
 import typeDefs from './server/typeDefs/index.js';
 import resolvers from './server/resolvers/index.js';
 import models, { sequelize } from './server/models/index.js';
-import { logTextColorCyan } from './server/utils/index.js';
+import { logTools } from './server/utils/index.js';
 
 const port = process.env.PORT || 9000;
 const schema = makeExecutableSchema({
@@ -27,7 +27,7 @@ app.use(
 sequelize.sync().then(() => {
   app.listen(port, () => {
     console.log(
-      logTextColorCyan,
+      logTools.logTextColorCyan,
       `🟢 Running GraphQL API server at: http://localhost:${port}/graphql`
     );
   });

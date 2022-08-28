@@ -1,3 +1,7 @@
+import { logTools } from '../utils/index.js';
+
+const { logger } = logTools;
+
 const locationResolver = {
   Query: {
     location: async (parent, { id }, { Location }) => {
@@ -7,7 +11,7 @@ const locationResolver = {
         },
       });
       if (!location) {
-        console.log('This location was not found! Please try your query again.');
+        logger.warn(`Location with id of ${id} was not found! Please try your query again.`);
       }
       return location;
     },
@@ -32,7 +36,7 @@ const locationResolver = {
         );
         return location;
       } catch (error) {
-        console.log('Error creating location:', error);
+        logger.error(`Error in creating new location: ${error}`);
         return error;
       }
     },
@@ -59,26 +63,35 @@ const locationResolver = {
           });
           return true;
         } catch (error) {
-          console.log('Error in updating location:', error);
+          logger.error(`Error in updating location with id ${id}: ${error}`);
           return false;
         }
       } else {
-        console.log(`The location record with an id of "${id}" does not exist!`);
-        return false;
+        const warnMessage = `The location record with id ${id} does not exist!`;
+        logger.warn(warnMessage);
+        return warnMessage;
       }
     },
     deleteLocation: async (parent, { id }, { Location }) => {
-      try {
-        await Location.destroy({
-          where: {
-            id,
-          },
-        });
-        return true;
-      } catch (error) {
-        console.log('Error deleting location:', error);
+      const location = await Location.findOne({ where: { id } });
+      if (location) {
+        try {
+          await Location.destroy({
+            where: {
+              id,
+            },
+          });
+          return `Deleted location with id ${id}`;
+        } catch (error) {
+          const errorMessage = `Error in deleting location with id ${id}: ${error}`;
+          logger.error(errorMessage);
+          return errorMessage;
+        }
+      } else {
+        const warnMessage = `The location record with id ${id} does not exist!`;
+        logger.warn(warnMessage);
+        return warnMessage;
       }
-      return false;
     },
   },
   Location: {
