@@ -1,4 +1,4 @@
-## About:
+## About
 
 This project creates a Node.js server integrated with GraphQL.
 
@@ -19,6 +19,7 @@ DB_NAME=database_name
 DB_USER=database_user
 DB_PASSWORD=database_password
 NODE_ENV=value (for example, DEVELOPMENT)
+PORT=port_number
 GOOGLE_MAPS_API_KEY=google_maps_api_key
 ````
 
