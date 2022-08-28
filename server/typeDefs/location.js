@@ -3,10 +3,11 @@ const locationType = `
     id: ID!
     name: String!
     address: String!
-    latitude: String!
-    longitude: String!
+    latitude: Float!
+    longitude: Float!
     createdAt: DateTime!
     updatedAt: DateTime!
+    organization: Organization!
   }
 `;
 

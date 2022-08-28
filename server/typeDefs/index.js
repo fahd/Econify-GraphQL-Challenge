@@ -6,21 +6,26 @@ import eventType from './event.js';
 
 const rootTypes = `
   type Query {
-    organization(organizationName: String!): Organization!
-    event(eventName: String!): Event!
-    location(locationName: String!): Location!
-    eventOrganization(eventName: String!): Organization!
-    locationOrganization(locationName: String!): Organization!
+    organizations: [Organization!]!
+    organization(id: ID!): Organization!
+
+    event(id: ID!): Event!
+    events: [Event!]!
+
+    location(id: ID!): Location!
+    locations: [Location!]!
   }
 
   type Mutation {
     createOrganization(name: String!): Organization!
-    createEvent(eventName:String!): Event!
-    updateEvent(eventName:String!): Event!
-    deleteEvent(eventName:String!): Boolean!
-    createLocation(locationName:String! address:String): Location!
-    updateLocation(locationName:String!): Location!
-    deleteLocation(locationName:String!): Location!
+
+    createEvent(eventName:String! description:String! organizationId:ID! date:String! time:String!): Event!
+    updateEvent(id:ID! eventName:String description:String date:String time:String): Boolean!
+    deleteEvent(id:ID!): Boolean!
+    
+    createLocation(locationName:String! organizationId: ID! address:String): Location!
+    updateLocation(id:ID! locationName:String address:String): Boolean!
+    deleteLocation(id:ID!): Boolean!
   }
 
   schema {

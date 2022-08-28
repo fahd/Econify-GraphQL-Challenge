@@ -12,7 +12,6 @@ const getLocation = (sequelize, { DataTypes }) => {
     },
     address: {
       type: DataTypes.STRING,
-      allowNull: false,
     },
     latitude: DataTypes.FLOAT,
     longitude: DataTypes.FLOAT,

@@ -13,7 +13,8 @@ const getEvent = (sequelize, { DataTypes }) => {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    date: DataTypes.DATE,
+    date: DataTypes.DATEONLY,
+    time: DataTypes.TIME,
     createdAt: {
       type: DataTypes.DATE,
       allowNull: false,

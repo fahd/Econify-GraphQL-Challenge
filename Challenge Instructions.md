@@ -15,28 +15,30 @@ Some bullet points:
 Database Schema:
 
 1. Organization:
-    - Name
-    - CreatedAt
-    - UpdatedAt
+
+   - Name
+   - CreatedAt
+   - UpdatedAt
 
 2. Locations: (belongs to Organization):
-    - Name
-    - Address
-    - Latitude
-    - Longitude
-    - CreatedAt
-    - UpdatedAt
+
+   - Name
+   - Address
+   - Latitude
+   - Longitude
+   - CreatedAt
+   - UpdatedAt
 
 3. Events (belongs to Organization)
-    - Name
-    - Date / Time (can modify these columns to fit your needs better. Doesn’t have to be exactly one column)
-    - Description
-    - CreatedAt
-    - UpdatedAt
+   - Name
+   - Date / Time (can modify these columns to fit your needs better. Doesn’t have to be exactly one column)
+   - Description
+   - CreatedAt
+   - UpdatedAt
 
 \*\*\*Bonus:
 
--   When a user submits a location with an address, the latitude & longitude is gathered via the Google Places API.
+- When a user submits a location with an address, the latitude & longitude is gathered via the Google Places API.
 
 Keep in mind we will be reviewing the architecture and modularization of your code, so having it work well is only part of the project.
 

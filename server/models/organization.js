@@ -21,8 +21,8 @@ const getOrganization = (sequelize, { DataTypes }) => {
   });
 
   Organization.associate = (models) => {
-    Organization.hasMany(models.Event);
-    Organization.hasMany(models.Location);
+    Organization.hasMany(models.Event, { onDelete: 'CASCADE' });
+    Organization.hasMany(models.Location, { onDelete: 'CASCADE' });
   };
 
   return Organization;

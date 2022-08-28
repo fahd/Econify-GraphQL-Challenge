@@ -1,37 +1,58 @@
 const organizationResolver = {
   Query: {
-    organization: async (parent, { organizationName }, models) => {
-      const organization = await models.Organization.findOne({
+    organization: async (parent, { id }, { Organization }) => {
+      const organization = await Organization.findOne({
         where: {
-          name: organizationName,
+          id,
         },
       });
       if (!organization) {
-        console.log(`Organization "${organizationName}" not found! Please try your query again`);
+        console.log('This organization was not found! Please try your query again');
       }
       return organization;
     },
+    organizations: async (parent, args, { Organization }) => {
+      const organizations = await Organization.findAll();
+      if (!organizations) {
+        console.log('There are no organizations added yet');
+      }
+      return organizations;
+    },
   },
   Mutation: {
-    createOrganization: async (parent, { name }, models) => {
+    createOrganization: async (parent, { name }, { Organization }) => {
       try {
-        const Organization = await models.Organization.create({
+        const organization = await Organization.create({
           name,
         });
-        return Organization;
+        return organization;
       } catch (error) {
         const { message } = error.errors[0];
-        console.log('Error:', message);
+        console.log('Error creating organization:', message);
         return error;
       }
     },
   },
   Organization: {
-    events: async (parent, { organizationName }, models) => {
+    events: async (parent, args, { Event }) => {
+      const parentOrganizationId = parent.id;
+      const events = await Event.findAll({
+        where: {
+          organizationId: parentOrganizationId,
+        },
+      });
+      return events;
     },
-    locations: async (parent, { organizationName }, models) => {
+    locations: async (parent, args, { Location }) => {
+      const parentOrganizationId = parent.id;
+      const locations = await Location.findAll({
+        where: {
+          organizationId: parentOrganizationId,
+        },
+      });
+      return locations;
     },
-  }
+  },
 };
 
 export default organizationResolver;

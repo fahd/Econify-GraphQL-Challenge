@@ -2,10 +2,12 @@ const eventType = `
   type Event {
     id: ID!
     name: String!
-    date: DateTime!
     description: String!
+    date: String!
+    time: String!
     createdAt: DateTime!
     updatedAt: DateTime!
+    organization: Organization!
   }
 `;
 

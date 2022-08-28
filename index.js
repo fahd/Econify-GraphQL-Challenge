@@ -15,14 +15,20 @@ const schema = makeExecutableSchema({
 
 const app = express();
 
-app.use('/graphql', graphqlHTTP({
-  schema,
-  graphiql: true,
-  context: models,
-}));
+app.use(
+  '/graphql',
+  graphqlHTTP({
+    schema,
+    graphiql: true,
+    context: models,
+  }),
+);
 
 sequelize.sync().then(() => {
   app.listen(port, () => {
-    console.log(logTextColorCyan, `🟢 Running GraphQL API server at: http://localhost:${port}/graphql`);
+    console.log(
+      logTextColorCyan,
+      `🟢 Running GraphQL API server at: http://localhost:${port}/graphql`
+    );
   });
 });
