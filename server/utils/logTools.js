@@ -35,4 +35,5 @@ const logger = createLogger({
   transports: [new transports.Console({ format: combine(loggerFormat) })],
 });
 
-export default { logTextColorCyan, logTextColorGreen, logger };
+const logTools = { logTextColorCyan, logTextColorGreen, logger };
+export default logTools;

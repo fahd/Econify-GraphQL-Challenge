@@ -1,7 +1,8 @@
 import 'dotenv/config';
 import axios from 'axios';
-import logger from './logTools.js';
+import logTools from './logTools.js';
 
+const { logger } = logTools;
 const { GOOGLE_MAPS_API_KEY } = process.env;
 
 const api = {
