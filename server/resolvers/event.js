@@ -10,9 +10,7 @@ const eventResolver = {
           id,
         },
       });
-      if (!event) {
-        logger.warn(`Event with id ${id} was not found! Please try your query again.`);
-      }
+      if (!event) logger.warn(`Event with id ${id} was not found! Please try your query again.`);
       return event;
     },
   },
@@ -45,7 +43,6 @@ const eventResolver = {
       } catch (error) {
         const { message } = error.errors[0];
         logger.error(`Error creating event: ${message}`);
-        return error;
       }
     },
     updateEvent: async (parent, {
@@ -63,21 +60,18 @@ const eventResolver = {
           if (description) modifiedEvent.description = description;
           if (date) modifiedEvent.date = date;
           if (time) modifiedEvent.time = time;
-          await Event.update(modifiedEvent, {
+          const [rowsChanged, eventUpdated] = await Event.update(modifiedEvent, {
             where: {
               id,
             },
+            returning: true,
           });
-          return `Event with id ${id} updated.`;
+          return eventUpdated[0];
         } catch (error) {
-          const errorMessage = `Error in updating event with id ${id}: ${error}`;
-          logger.error(errorMessage);
-          return errorMessage;
+          logger.error(`Error in updating event with id ${id}: ${error}`);
         }
       } else {
-        const warnMessage = `The event record with id ${id} does not exist!`;
-        logger.warn(warnMessage);
-        return warnMessage;
+        logger.warn(`The event record with id ${id} does not exist!`);
       }
     },
     deleteEvent: async (parent, { id }, { Event }) => {
@@ -89,16 +83,12 @@ const eventResolver = {
               id,
             },
           });
-          return `Event with id ${id} deleted.`;
+          return id;
         } catch (error) {
-          const errorMessage = `Error in deleting event with id ${id}: ${error}`;
-          logger.error(errorMessage);
-          return errorMessage;
+          logger.error(`Error in deleting event with id ${id}: ${error}`);
         }
       } else {
-        const warnMessage = `The event record with id ${id} does not exist!`;
-        logger.warn(warnMessage);
-        return warnMessage;
+        logger.warn(`The event record with id ${id} does not exist!`);
       }
     },
   },

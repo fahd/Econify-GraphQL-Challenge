@@ -5,6 +5,7 @@
   },
   "extends": "airbnb-base",
   "overrides": [],
+  "ignorePatterns": [ "__tests__/"],
   "parserOptions": {
     "ecmaVersion": "latest",
     "sourceType": "module"

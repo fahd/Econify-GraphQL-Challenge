@@ -20,12 +20,12 @@ const rootTypes = `
     createOrganization(name: String!): Organization!
 
     createEvent(eventName:String! description:String! organizationId:ID! date:String! time:String!): Event!
-    updateEvent(id:ID! eventName:String description:String date:String time:String): String!
-    deleteEvent(id:ID!): String!
+    updateEvent(id:ID! eventName:String description:String date:String time:String): Event!
+    deleteEvent(id:ID!): Int!
     
     createLocation(locationName:String! organizationId: ID! address:String): Location!
-    updateLocation(id:ID! locationName:String address:String): String!
-    deleteLocation(id:ID!): String!
+    updateLocation(id:ID! locationName:String address:String): Location!
+    deleteLocation(id:ID!): Int!
   }
 
   schema {

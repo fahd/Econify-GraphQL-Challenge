@@ -55,6 +55,8 @@ npm run lint:
 // best practices according to Airbnb style guide.
 npm run lint:fix 
 
+// Runs Jest testing framework
+npm run test
 ```
 - Located in `package.json`.
 
